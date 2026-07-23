@@ -4,7 +4,8 @@
   "description": "Gera um PDF com todas as páginas de um relatório Power BI publicado na web (Publish to Web) e serve para download no site.",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "postinstall": "npx puppeteer browsers install chrome"
   },
   "engines": {
     "node": "18.x"
