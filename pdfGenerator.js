@@ -86,12 +86,18 @@ async function gerarPdfDoRelatorio(url) {
   console.log('Abrindo navegador para:', url);
   const browser = await puppeteer.launch({
     headless: 'new',
-    args: ['--no-sandbox', '--disable-setuid-sandbox'],
+    args: [
+      '--no-sandbox',
+      '--disable-setuid-sandbox',
+      '--disable-dev-shm-usage',
+      '--disable-gpu',
+      '--single-process',
+    ],
   });
 
   try {
     const page = await browser.newPage();
-    await page.setViewport({ width: 1600, height: 900 });
+    await page.setViewport({ width: 1280, height: 720 });
 
     await page.goto(url, { waitUntil: 'networkidle2', timeout: 60000 });
     await new Promise((r) => setTimeout(r, WAIT_RENDER_MS));
