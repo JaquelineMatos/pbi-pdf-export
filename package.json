@@ -1,0 +1,17 @@
+{
+  "name": "pbi-pdf-export",
+  "version": "1.0.0",
+  "description": "Gera um PDF com todas as páginas de um relatório Power BI publicado na web (Publish to Web) e serve para download no site.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": "18.x"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "puppeteer": "^22.15.0",
+    "pdf-lib": "^1.17.1"
+  }
+}
