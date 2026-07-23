@@ -91,13 +91,24 @@ async function gerarPdfDoRelatorio(url) {
       '--disable-setuid-sandbox',
       '--disable-dev-shm-usage',
       '--disable-gpu',
-      '--single-process',
     ],
   });
 
   try {
     const page = await browser.newPage();
-    await page.setViewport({ width: 1280, height: 720 });
+    await page.setViewport({ width: 1024, height: 576 });
+
+    // Bloqueia recursos que pesam na memória mas não afetam o visual dos
+    // gráficos (fontes web, vídeo, mídia). Mantém imagens, scripts e CSS.
+    await page.setRequestInterception(true);
+    page.on('request', (req) => {
+      const tipo = req.resourceType();
+      if (tipo === 'media' || tipo === 'font') {
+        req.abort();
+      } else {
+        req.continue();
+      }
+    });
 
     await page.goto(url, { waitUntil: 'networkidle2', timeout: 60000 });
     await new Promise((r) => setTimeout(r, WAIT_RENDER_MS));
